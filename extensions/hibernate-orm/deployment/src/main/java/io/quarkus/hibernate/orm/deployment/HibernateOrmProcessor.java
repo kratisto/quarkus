@@ -224,6 +224,14 @@ public final class HibernateOrmProcessor {
 
         // inspect service files for additional integrators
         Collection<Class<? extends Integrator>> integratorClasses = new LinkedHashSet<>();
+
+        // add integrator present in configuration
+        hibernateConfig.integrators.ifPresent(integrators -> {
+            for (String integrator : integrators) {
+                integratorClasses.add((Class<? extends Integrator>) recorderContext.classProxy(integrator));
+            }
+        });
+
         for (String integratorClassName : ServiceUtil.classNamesNamedIn(getClass().getClassLoader(),
                 "META-INF/services/org.hibernate.integrator.spi.Integrator")) {
             integratorClasses.add((Class<? extends Integrator>) recorderContext.classProxy(integratorClassName));

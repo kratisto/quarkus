@@ -1,6 +1,7 @@
 package io.quarkus.hibernate.orm.deployment;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalLong;
@@ -28,6 +29,12 @@ public class HibernateOrmConfig {
     //TODO should it be shortcuts like "postgresql" "h2" etc
     @ConfigItem
     public Optional<String> dialect;
+
+    /**
+     * List of the integrator to set up. Comma separeted. Fully classe name
+     */
+    @ConfigItem
+    public Optional<List<String>> integrators;
 
     /**
      * The storage engine to use when the dialect supports multiple storage engines.
